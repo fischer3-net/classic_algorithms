@@ -4,7 +4,12 @@ import heapq
 
 
 def dijkstra(graph: dict[str, dict[str, int]], source: str) -> dict[str, int]:
-    distances = {node: float("inf") for node in graph}
+    """Compute shortest-path distances for graphs with non-negative edge weights."""
+    nodes = set(graph)
+    for neighbors in graph.values():
+        nodes.update(neighbors)
+
+    distances = {node: float("inf") for node in nodes}
     distances[source] = 0
     queue: list[tuple[int, str]] = [(0, source)]
 
@@ -13,7 +18,7 @@ def dijkstra(graph: dict[str, dict[str, int]], source: str) -> dict[str, int]:
         if current_distance > distances[node]:
             continue
 
-        for neighbor, weight in graph[node].items():
+        for neighbor, weight in graph.get(node, {}).items():
             candidate = current_distance + weight
             if candidate < distances[neighbor]:
                 distances[neighbor] = candidate
