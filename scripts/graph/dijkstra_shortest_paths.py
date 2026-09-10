@@ -12,6 +12,9 @@ def dijkstra(graph: dict[str, dict[str, float]], source: str) -> dict[str, float
                 raise ValueError("Dijkstra's algorithm requires non-negative edge weights")
             nodes.add(neighbor)
 
+    if source not in nodes:
+        raise ValueError(f"Unknown source node: {source}")
+
     distances = {node: float("inf") for node in nodes}
     distances[source] = 0.0
     queue: list[tuple[float, str]] = [(0.0, source)]
