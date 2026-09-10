@@ -3,7 +3,7 @@ from __future__ import annotations
 import heapq
 
 
-def dijkstra(graph: dict[str, dict[str, int]], source: str) -> dict[str, int]:
+def dijkstra(graph: dict[str, dict[str, float]], source: str) -> dict[str, float]:
     """Compute shortest-path distances for graphs with non-negative edge weights."""
     nodes = set(graph)
     for neighbors in graph.values():
@@ -13,8 +13,8 @@ def dijkstra(graph: dict[str, dict[str, int]], source: str) -> dict[str, int]:
             nodes.add(neighbor)
 
     distances = {node: float("inf") for node in nodes}
-    distances[source] = 0
-    queue: list[tuple[int, str]] = [(0, source)]
+    distances[source] = 0.0
+    queue: list[tuple[float, str]] = [(0.0, source)]
 
     while queue:
         current_distance, node = heapq.heappop(queue)
