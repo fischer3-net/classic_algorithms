@@ -7,7 +7,10 @@ def dijkstra(graph: dict[str, dict[str, int]], source: str) -> dict[str, int]:
     """Compute shortest-path distances for graphs with non-negative edge weights."""
     nodes = set(graph)
     for neighbors in graph.values():
-        nodes.update(neighbors)
+        for neighbor, weight in neighbors.items():
+            if weight < 0:
+                raise ValueError("Dijkstra's algorithm requires non-negative edge weights")
+            nodes.add(neighbor)
 
     distances = {node: float("inf") for node in nodes}
     distances[source] = 0
